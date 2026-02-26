@@ -1,0 +1,80 @@
+---
+const offers = [
+  { icon: "♟", title: "Massive Game Library", desc: "Over 100 curated board games for every taste and group size — from quick party games to deep strategy epics. Our staff are passionate gamers who love helping you find the perfect match.", highlight: "100+ titles" },
+  { icon: "☕", title: "Specialty Coffee & Drinks", desc: "Locally sourced beans, expertly brewed. Whether you're into a classic espresso, a creamy latte, or something seasonal and unexpected — we've got your cup covered.", highlight: "Craft drinks" },
+  { icon: "🍕", title: "Food & Snacks", desc: "Fuel your game sessions with our rotating menu of hearty bites and shareable snacks. Designed for eating with one hand and rolling dice with the other.", highlight: "Always fresh" },
+  { icon: "🧠", title: "Game Coaching", desc: "Never played a game before? No problem. Our crew is here to walk you through the rules, suggest strategies, and make sure your first time is a great time.", highlight: "All skill levels" },
+  { icon: "🎉", title: "Private Events", desc: "Planning a birthday, team outing, or game night with a bigger group? Reach out — we love hosting gatherings and making sure everyone has an incredible time.", highlight: "Groups welcome" },
+  { icon: "🌙", title: "Cozy Atmosphere", desc: "Warm lighting, comfortable seating, and the right kind of background noise. The Game House is designed to make you want to stay one more round. Always.", highlight: "Stay a while" }
+];
+---
+
+<section class="offers" id="offers">
+  <div class="container">
+    <div class="offers__header reveal">
+      <span class="section-label">Experience</span>
+      <h2 class="offers__heading">What We Offer</h2>
+      <div class="divider divider--center"></div>
+      <p class="offers__subheading">Everything you need for an unforgettable night out — or a perfect quiet afternoon in.</p>
+    </div>
+
+    <div class="offers__grid">
+      {offers.map((offer, i) => (
+        <article class="offer-card reveal" style={`animation-delay: ${i * 0.08}s`}>
+          <div class="offer-card__icon" aria-hidden="true">{offer.icon}</div>
+          <div class="offer-card__badge">{offer.highlight}</div>
+          <h3 class="offer-card__title">{offer.title}</h3>
+          <p class="offer-card__desc">{offer.desc}</p>
+          <div class="offer-card__accent"></div>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+.offers { padding: var(--section-pad); background: var(--black); position: relative; }
+.offers::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(201,168,76,0.3), transparent);
+}
+.offers__header { text-align: center; margin-bottom: 4rem; }
+.offers__heading { font-size: clamp(2rem, 5vw, 3rem); color: var(--cream); margin-bottom: 0.25rem; }
+.offers__subheading { color: var(--cream-dim); font-size: 1.05rem; max-width: 480px; margin: 0 auto; line-height: 1.7; }
+.offers__grid {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 1.5px; background: rgba(201,168,76,0.1);
+  border: 1px solid rgba(201,168,76,0.1);
+}
+.offer-card {
+  position: relative; background: var(--black-card);
+  padding: 2.5rem 2rem; overflow: hidden;
+  transition: background 0.3s ease; cursor: default;
+}
+.offer-card:hover { background: #1e1c18; }
+.offer-card:hover .offer-card__accent { opacity: 1; width: 100%; }
+.offer-card__accent {
+  position: absolute; bottom: 0; left: 0; height: 2px; width: 0;
+  background: linear-gradient(90deg, var(--gold), var(--gold-dim));
+  transition: width 0.5s ease, opacity 0.3s ease; opacity: 0;
+}
+.offer-card__icon { font-size: 2.25rem; margin-bottom: 0.75rem; display: block; transition: transform 0.3s ease; }
+.offer-card:hover .offer-card__icon { transform: scale(1.1) rotate(-5deg); }
+.offer-card__badge {
+  display: inline-block; font-size: 0.65rem; font-weight: 600;
+  letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold);
+  border: 1px solid rgba(201,168,76,0.3); padding: 0.2rem 0.6rem;
+  border-radius: 2px; margin-bottom: 1rem;
+}
+.offer-card__title {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 1.2rem; font-weight: 700; color: var(--cream);
+  margin-bottom: 0.75rem; line-height: 1.3;
+}
+.offer-card__desc { font-size: 0.9rem; color: rgba(201,191,168,0.75); line-height: 1.75; max-width: unset; }
+@media (max-width: 900px) { .offers__grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 580px) {
+  .offers__grid { grid-template-columns: 1fr; background: transparent; border: none; gap: 1rem; }
+  .offer-card { border: 1px solid rgba(201,168,76,0.12); }
+}
+</style>
