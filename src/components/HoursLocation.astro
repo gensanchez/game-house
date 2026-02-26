@@ -1,0 +1,113 @@
+---
+const schedule = [
+  { days: "Monday – Thursday", hours: "5:00 PM – 9:00 PM" },
+  { days: "Friday",            hours: "5:00 PM – 10:00 PM", highlight: true },
+  { days: "Saturday – Sunday", hours: "2:00 PM – 10:00 PM", highlight: true },
+];
+---
+
+<section class="hours-location" id="hours">
+  <div class="container hours-location__inner">
+
+    <div class="hours reveal" id="visit">
+      <span class="section-label">Plan Your Visit</span>
+      <h2 class="hours__heading">Opening Hours</h2>
+      <div class="divider"></div>
+      <div class="hours__schedule">
+        {schedule.map((item) => (
+          <div class={`hours__row ${item.highlight ? 'hours__row--highlight' : ''}`}>
+            <span class="hours__day">{item.days}</span>
+            <span class="hours__dots"></span>
+            <span class="hours__time">{item.hours}</span>
+          </div>
+        ))}
+      </div>
+      <p class="hours__note">
+        Walk-ins are always welcome! For groups of 6 or more, we recommend calling ahead so we can make sure you have the perfect setup waiting.
+      </p>
+    </div>
+
+    <div class="hours-location__sep" aria-hidden="true"></div>
+
+    <div class="location reveal">
+      <span class="section-label">Find Us</span>
+      <h2 class="location__heading">Our Location</h2>
+      <div class="divider"></div>
+      <div class="location__address-block">
+        <div class="location__icon" aria-hidden="true">
+          <svg width="22" height="22" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+          </svg>
+        </div>
+        <div>
+          <p class="location__street">1726 Smith Street</p>
+          <p class="location__city">North Providence, RI</p>
+        </div>
+      </div>
+      <a href="https://maps.google.com/?q=1726+Smith+Street+North+Providence+RI" target="_blank" rel="noopener noreferrer" class="location__map-btn">
+        <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+        </svg>
+        Open in Google Maps
+      </a>
+      <div class="location__map-preview">
+        <div class="location__map-grid" aria-hidden="true"></div>
+        <div class="location__map-pin">
+          <span>♟</span>
+          <span class="location__map-label">The Game House</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<style>
+.hours-location { padding: var(--section-pad); background: var(--black-soft); position: relative; overflow: hidden; }
+.hours-location::before, .hours-location::after {
+  content: ''; position: absolute; left: 0; right: 0; height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(201,168,76,0.25), transparent);
+}
+.hours-location::before { top: 0; }
+.hours-location::after  { bottom: 0; }
+.hours-location__inner { display: grid; grid-template-columns: 1fr auto 1fr; gap: 4rem; align-items: start; }
+.hours-location__sep { width: 1px; min-height: 400px; background: linear-gradient(to bottom, transparent, rgba(201,168,76,0.25), transparent); align-self: stretch; margin-top: 3rem; }
+.hours__heading, .location__heading { font-size: clamp(1.6rem, 3vw, 2rem); color: var(--cream); margin-bottom: 0.25rem; }
+.hours__schedule { display: flex; flex-direction: column; margin-bottom: 2rem; border: 1px solid rgba(201,168,76,0.12); }
+.hours__row { display: flex; align-items: center; gap: 0.75rem; padding: 1rem 1.25rem; border-bottom: 1px solid rgba(201,168,76,0.08); transition: background 0.25s ease; }
+.hours__row:last-child { border-bottom: none; }
+.hours__row:hover { background: rgba(201,168,76,0.04); }
+.hours__row--highlight { background: rgba(201,168,76,0.05); }
+.hours__row--highlight .hours__time { color: var(--gold-light); font-weight: 600; }
+.hours__day { font-size: 0.875rem; color: var(--cream-dim); white-space: nowrap; min-width: 160px; }
+.hours__dots { flex: 1; height: 1px; background: repeating-linear-gradient(90deg, rgba(201,168,76,0.2) 0, rgba(201,168,76,0.2) 3px, transparent 3px, transparent 8px); }
+.hours__time { font-size: 0.875rem; color: var(--cream); white-space: nowrap; font-weight: 500; }
+.hours__note { font-size: 0.85rem; color: rgba(201,191,168,0.6); line-height: 1.7; font-style: italic; border-left: 2px solid rgba(201,168,76,0.3); padding-left: 1rem; max-width: unset; }
+.location__address-block { display: flex; align-items: flex-start; gap: 1rem; margin-bottom: 1.5rem; }
+.location__icon { color: var(--gold); margin-top: 0.2rem; flex-shrink: 0; }
+.location__street { font-size: 1.4rem; font-family: 'Playfair Display', Georgia, serif; color: var(--cream); font-weight: 700; max-width: unset; }
+.location__city { font-size: 1rem; color: var(--gold); font-weight: 500; max-width: unset; margin-top: 0.15rem; }
+.location__map-btn {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  font-size: 0.8rem; font-weight: 600; letter-spacing: 0.08em;
+  text-transform: uppercase; color: var(--gold-dim);
+  border-bottom: 1px solid rgba(201,168,76,0.3); padding-bottom: 2px;
+  transition: color 0.25s, border-color 0.25s; margin-bottom: 2rem;
+}
+.location__map-btn:hover { color: var(--gold-light); border-color: var(--gold-light); }
+.location__map-preview { position: relative; height: 160px; background: var(--black-card); border: 1px solid rgba(201,168,76,0.15); overflow: hidden; display: flex; align-items: center; justify-content: center; }
+.location__map-grid {
+  position: absolute; inset: 0;
+  background-image: repeating-linear-gradient(0deg, rgba(201,168,76,0.06) 0, rgba(201,168,76,0.06) 1px, transparent 1px, transparent 30px), repeating-linear-gradient(90deg, rgba(201,168,76,0.06) 0, rgba(201,168,76,0.06) 1px, transparent 1px, transparent 30px);
+}
+.location__map-pin { position: relative; z-index: 2; display: flex; flex-direction: column; align-items: center; gap: 0.5rem; }
+.location__map-pin span:first-child { font-size: 2rem; filter: drop-shadow(0 0 12px rgba(201,168,76,0.5)); animation: pinBounce 2s ease-in-out infinite; }
+@keyframes pinBounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
+.location__map-label { font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); background: rgba(13,13,13,0.8); padding: 0.25rem 0.75rem; border: 1px solid rgba(201,168,76,0.3); }
+@media (max-width: 900px) {
+  .hours-location__inner { grid-template-columns: 1fr; gap: 3rem; }
+  .hours-location__sep { display: none; }
+  .hours__day { min-width: 130px; }
+}
+</style>
