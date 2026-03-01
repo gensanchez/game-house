@@ -92,18 +92,8 @@
     position: absolute;
     inset: 0;
     background:
-      radial-gradient(
-        ellipse 80% 60% at 50% 100%,
-        rgba(201, 168, 76, 0.08) 0%,
-        transparent 70%
-      ),
-      repeating-linear-gradient(
-        45deg,
-        transparent,
-        transparent 40px,
-        rgba(201, 168, 76, 0.015) 40px,
-        rgba(201, 168, 76, 0.015) 41px
-      );
+      radial-gradient(ellipse 80% 60% at 50% 100%, rgba(201, 168, 76, 0.08) 0%, transparent 70%),
+      repeating-linear-gradient(45deg, transparent, transparent 40px, rgba(201, 168, 76, 0.015) 40px, rgba(201, 168, 76, 0.015) 41px);
     pointer-events: none;
   }
   .cta__glow {
@@ -113,45 +103,25 @@
     transform: translateX(-50%);
     width: 700px;
     height: 400px;
-    background: radial-gradient(
-      circle,
-      rgba(201, 168, 76, 0.12) 0%,
-      transparent 60%
-    );
+    background: radial-gradient(circle, rgba(201, 168, 76, 0.12) 0%, transparent 60%);
     pointer-events: none;
   }
   .cta::before {
-    content: "";
+    content: '';
     position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
+    top: 0; left: 0; right: 0;
     height: 1px;
-    background: linear-gradient(
-      90deg,
-      transparent,
-      rgba(201, 168, 76, 0.4),
-      transparent
-    );
+    background: linear-gradient(90deg, transparent, rgba(201, 168, 76, 0.4), transparent);
   }
-  .cta__inner {
-    position: relative;
-    z-index: 2;
-  }
-  .cta__content {
-    max-width: 680px;
-    margin: 0 auto;
-  }
+  .cta__inner { position: relative; z-index: 2; }
+  .cta__content { max-width: 680px; margin: 0 auto; }
   .cta__heading {
     font-size: clamp(2.2rem, 5vw, 3.5rem);
     color: var(--cream);
     line-height: 1.15;
     margin-bottom: 0.5rem;
   }
-  .cta__heading em {
-    color: var(--gold);
-    font-style: italic;
-  }
+  .cta__heading em { color: var(--gold); font-style: italic; }
   .cta__desc {
     font-size: 1.05rem;
     color: var(--cream-dim);
@@ -185,110 +155,35 @@
     border-radius: 50%;
     flex-shrink: 0;
   }
-  .cta__btn-text {
-    display: flex;
-    flex-direction: column;
-    gap: 0.1rem;
-  }
-  .cta__btn-text small {
-    font-size: 0.65rem;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    opacity: 0.7;
-  }
-  .cta__btn-text strong {
-    font-size: 1rem;
-    font-weight: 700;
-    letter-spacing: 0.02em;
-  }
-  .cta__btn--gold {
-    background: var(--gold);
-    color: var(--black);
-    box-shadow: 0 4px 20px rgba(201, 168, 76, 0.2);
-  }
-  .cta__btn--gold .cta__btn-icon {
-    background: rgba(0, 0, 0, 0.15);
-  }
-  .cta__btn--gold:hover {
-    background: var(--gold-light);
-    transform: translateY(-3px);
-    box-shadow: 0 10px 35px rgba(201, 168, 76, 0.35);
-  }
-  .cta__btn--insta {
-    background: transparent;
-    color: var(--cream);
-    border: 1px solid rgba(245, 239, 224, 0.2);
-  }
-  .cta__btn--insta .cta__btn-icon {
-    background: linear-gradient(
-      135deg,
-      #f09433,
-      #e6683c,
-      #dc2743,
-      #cc2366,
-      #bc1888
-    );
-    color: white;
-  }
-  .cta__btn--insta:hover {
-    border-color: rgba(245, 239, 224, 0.4);
-    transform: translateY(-3px);
-    background: rgba(255, 255, 255, 0.03);
-  }
-  .cta__address {
-    font-size: 0.85rem;
-    color: rgba(201, 191, 168, 0.5);
-    letter-spacing: 0.05em;
-    max-width: unset;
-    margin: 0 auto;
-  }
-  .cta__deco {
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    user-select: none;
-  }
-  .cta__piece {
-    position: absolute;
-    color: rgba(201, 168, 76, 0.05);
-  }
-  .cta__piece--1 {
-    top: 5%;
-    left: 3%;
-    font-size: 10rem;
-    animation: floatPiece 9s ease-in-out infinite;
-  }
-  .cta__piece--2 {
-    bottom: 10%;
-    right: 4%;
-    font-size: 7rem;
-    animation: floatPiece 11s ease-in-out infinite reverse;
-  }
-  .cta__piece--3 {
-    top: 15%;
-    right: 8%;
-    font-size: 5rem;
-    animation: floatPiece 13s ease-in-out infinite 2s;
-  }
+  .cta__btn-text { display: flex; flex-direction: column; gap: 0.1rem; }
+  .cta__btn-text small { font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; opacity: 0.7; }
+  .cta__btn-text strong { font-size: 1rem; font-weight: 700; letter-spacing: 0.02em; }
+  .cta__btn--gold { background: var(--gold); color: var(--black); box-shadow: 0 4px 20px rgba(201, 168, 76, 0.2); }
+  .cta__btn--gold .cta__btn-icon { background: rgba(0, 0, 0, 0.15); }
+  .cta__btn--gold:hover { background: var(--gold-light); transform: translateY(-3px); box-shadow: 0 10px 35px rgba(201, 168, 76, 0.35); }
+  .cta__btn--insta { background: transparent; color: var(--cream); border: 1px solid rgba(245, 239, 224, 0.2); }
+  .cta__btn--insta .cta__btn-icon { background: linear-gradient(135deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); color: white; }
+  .cta__btn--insta:hover { border-color: rgba(245, 239, 224, 0.4); transform: translateY(-3px); background: rgba(255, 255, 255, 0.03); }
+  .cta__address { font-size: 0.85rem; color: rgba(201, 191, 168, 0.5); letter-spacing: 0.05em; max-width: unset; margin: 0 auto; }
+  .cta__deco { position: absolute; inset: 0; pointer-events: none; user-select: none; }
+  .cta__piece { position: absolute; color: rgba(201, 168, 76, 0.05); }
+  .cta__piece--1 { top: 5%; left: 3%; font-size: 10rem; animation: floatPiece 9s ease-in-out infinite; }
+  .cta__piece--2 { bottom: 10%; right: 4%; font-size: 7rem; animation: floatPiece 11s ease-in-out infinite reverse; }
+  .cta__piece--3 { top: 15%; right: 8%; font-size: 5rem; animation: floatPiece 13s ease-in-out infinite 2s; }
   @keyframes floatPiece {
-    0%,
-    100% {
-      transform: translateY(0) rotate(0deg);
-    }
-    50% {
-      transform: translateY(-20px) rotate(5deg);
-    }
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-20px) rotate(5deg); }
   }
+
   @media (max-width: 600px) {
     .cta__btn {
       min-width: 100%;
       justify-content: center;
+      text-align: center;
     }
-    .cta__actions {
-      gap: 0.75rem;
-    }
-    .cta__piece {
-      display: none;
-    }
+    .cta__actions { gap: 0.75rem; }
+    .cta__piece { display: none; }
+    .cta__desc { max-width: 100%; }
+    .cta__heading { font-size: clamp(2rem, 8vw, 2.8rem); }
   }
 </style>

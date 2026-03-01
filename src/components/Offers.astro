@@ -102,9 +102,23 @@ const offers = [
   margin-bottom: 0.75rem; line-height: 1.3;
 }
 .offer-card__desc { font-size: 0.9rem; color: rgba(201,191,168,0.75); line-height: 1.75; max-width: unset; }
-@media (max-width: 900px) { .offers__grid { grid-template-columns: repeat(2, 1fr); } }
-@media (max-width: 580px) {
-  .offers__grid { grid-template-columns: 1fr; background: transparent; border: none; gap: 1rem; }
-  .offer-card { border: 1px solid rgba(201,168,76,0.12); }
-}
+@media (max-width: 900px) {
+    .offers__grid { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  @media (max-width: 580px) {
+    .offers__grid {
+      grid-template-columns: 1fr;
+      background: transparent;
+      border: none;
+      gap: 1rem;
+    }
+    .offer-card {
+      border: 1px solid rgba(201, 168, 76, 0.12);
+      text-align: center;
+    }
+    .offer-card__badge { display: block; margin: 0 auto 1rem; }
+    .offers__header { padding: 0 0.5rem; }
+    .offers__subheading { max-width: 100%; }
+  }
 </style>

@@ -106,8 +106,42 @@ const schedule = [
 @keyframes pinBounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
 .location__map-label { font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); background: rgba(13,13,13,0.8); padding: 0.25rem 0.75rem; border: 1px solid rgba(201,168,76,0.3); }
 @media (max-width: 900px) {
-  .hours-location__inner { grid-template-columns: 1fr; gap: 3rem; }
-  .hours-location__sep { display: none; }
-  .hours__day { min-width: 130px; }
-}
+    .hours-location__inner {
+      grid-template-columns: 1fr;
+      gap: 3rem;
+    }
+    .hours-location__sep { display: none; }
+    .hours__day { min-width: 130px; }
+  }
+
+  @media (max-width: 600px) {
+    .hours-location__inner {
+      padding: 0 1.25rem;
+    }
+    .hours__row {
+      flex-wrap: wrap;
+      gap: 0.25rem;
+      padding: 0.875rem 1rem;
+    }
+    .hours__day {
+      min-width: unset;
+      width: 100%;
+      font-size: 0.8rem;
+    }
+    .hours__dots { display: none; }
+    .hours__time {
+      font-size: 0.8rem;
+      color: var(--gold-light);
+    }
+    .location__address-block {
+      justify-content: center;
+      text-align: center;
+    }
+    .location__map-btn {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 1.5rem;
+    }
+    .hours__note { text-align: left; }
+  }
 </style>

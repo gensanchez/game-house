@@ -348,6 +348,9 @@
     }
   }
   @media (max-width: 600px) {
+    .hero {
+      padding: 7rem 1.25rem 7rem;
+    }
     .hero__deco--tl,
     .hero__deco--br,
     .hero__deco--tr {
@@ -355,6 +358,23 @@
     }
     .hero__title-accent {
       -webkit-text-stroke-width: 1.5px;
+    }
+    .hero__desc {
+      font-size: 1rem;
+      max-width: 100%;
+    }
+    .hero__actions {
+      flex-direction: column;
+      align-items: center;
+    }
+    .btn {
+      width: 100%;
+      justify-content: center;
+    }
+    .hero__hours-peek {
+      flex-direction: column;
+      gap: 0.25rem;
+      text-align: center;
     }
   }
 </style>
