@@ -24,7 +24,7 @@ import logoImg from "../assets/game-house-logo2.png";
     </div>
 
     <p class="hero__desc">
-      Gather your crew. Pick a game. Let the night unfold.<br />
+      Gather your crew. Pick a game. Let the night unfold.
       Good coffee meets great company.
     </p>
 
@@ -76,6 +76,11 @@ import logoImg from "../assets/game-house-logo2.png";
       1726 Smith Street, North Providence
     </a>
   </div>
+
+  <div class="hero__scroll" aria-hidden="true">
+    <span class="hero__scroll-text">Scroll</span>
+    <div class="hero__scroll-bar"></div>
+  </div>
 </section>
 
 <style>
@@ -94,10 +99,30 @@ import logoImg from "../assets/game-house-logo2.png";
     position: absolute;
     inset: 0;
     background-image:
-      radial-gradient(circle at 20% 50%, rgba(201, 168, 76, 0.06) 0%, transparent 50%),
-      radial-gradient(circle at 80% 20%, rgba(201, 168, 76, 0.04) 0%, transparent 40%),
-      repeating-linear-gradient(0deg, transparent, transparent 60px, rgba(201, 168, 76, 0.025) 60px, rgba(201, 168, 76, 0.025) 61px),
-      repeating-linear-gradient(90deg, transparent, transparent 60px, rgba(201, 168, 76, 0.025) 60px, rgba(201, 168, 76, 0.025) 61px);
+      radial-gradient(
+        circle at 20% 50%,
+        rgba(201, 168, 76, 0.06) 0%,
+        transparent 50%
+      ),
+      radial-gradient(
+        circle at 80% 20%,
+        rgba(201, 168, 76, 0.04) 0%,
+        transparent 40%
+      ),
+      repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 60px,
+        rgba(201, 168, 76, 0.025) 60px,
+        rgba(201, 168, 76, 0.025) 61px
+      ),
+      repeating-linear-gradient(
+        90deg,
+        transparent,
+        transparent 60px,
+        rgba(201, 168, 76, 0.025) 60px,
+        rgba(201, 168, 76, 0.025) 61px
+      );
     pointer-events: none;
   }
   .hero__glow {
@@ -107,7 +132,11 @@ import logoImg from "../assets/game-house-logo2.png";
     transform: translate(-50%, -50%);
     width: 600px;
     height: 600px;
-    background: radial-gradient(circle, rgba(201, 168, 76, 0.08) 0%, transparent 70%);
+    background: radial-gradient(
+      circle,
+      rgba(201, 168, 76, 0.08) 0%,
+      transparent 70%
+    );
     pointer-events: none;
   }
   .hero__deco {
@@ -116,12 +145,32 @@ import logoImg from "../assets/game-house-logo2.png";
     pointer-events: none;
     user-select: none;
   }
-  .hero__deco--tl { top: 12%; left: 6%; font-size: 8rem; animation: float 8s ease-in-out infinite; }
-  .hero__deco--br { bottom: 15%; right: 5%; font-size: 10rem; animation: float 10s ease-in-out infinite reverse; }
-  .hero__deco--tr { top: 18%; right: 8%; font-size: 4rem; animation: float 12s ease-in-out infinite 2s; }
+  .hero__deco--tl {
+    top: 12%;
+    left: 6%;
+    font-size: 8rem;
+    animation: float 8s ease-in-out infinite;
+  }
+  .hero__deco--br {
+    bottom: 15%;
+    right: 5%;
+    font-size: 10rem;
+    animation: float 10s ease-in-out infinite reverse;
+  }
+  .hero__deco--tr {
+    top: 18%;
+    right: 8%;
+    font-size: 4rem;
+    animation: float 12s ease-in-out infinite 2s;
+  }
   @keyframes float {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-18px); }
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-18px);
+    }
   }
   .hero__content {
     position: relative;
@@ -130,8 +179,14 @@ import logoImg from "../assets/game-house-logo2.png";
     animation: fadeUp 1s ease forwards;
   }
   @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(40px); }
-    to   { opacity: 1; transform: translateY(0); }
+    from {
+      opacity: 0;
+      transform: translateY(40px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
   .hero__eyebrow {
     font-size: 0.8rem;
@@ -167,7 +222,10 @@ import logoImg from "../assets/game-house-logo2.png";
   .hero__divider-line:last-child {
     background: linear-gradient(270deg, transparent, var(--gold-dim));
   }
-  .hero__divider-icon { color: var(--gold); font-size: 1.1rem; }
+  .hero__divider-icon {
+    color: var(--gold);
+    font-size: 1.1rem;
+  }
   .hero__desc {
     font-size: 1.1rem;
     color: var(--cream-dim);
@@ -197,7 +255,10 @@ import logoImg from "../assets/game-house-logo2.png";
     cursor: pointer;
     border: none;
   }
-  .btn--primary { background: var(--gold); color: var(--black); }
+  .btn--primary {
+    background: var(--gold);
+    color: var(--black);
+  }
   .btn--primary:hover {
     background: var(--gold-light);
     transform: translateY(-2px);
@@ -224,7 +285,9 @@ import logoImg from "../assets/game-house-logo2.png";
     letter-spacing: 0.05em;
     animation: fadeUp 1s ease 0.6s both;
   }
-  .hero__hours-time { color: rgba(201, 191, 168, 0.8); }
+  .hero__hours-time {
+    color: rgba(201, 191, 168, 0.8);
+  }
   .hero__address {
     display: block;
     align-items: center;
@@ -235,24 +298,64 @@ import logoImg from "../assets/game-house-logo2.png";
     color: rgba(201, 191, 168, 0.5);
     letter-spacing: 0.05em;
     border-bottom: 1px solid transparent;
-    transition: color 0.25s ease, border-color 0.25s ease;
+    transition:
+      color 0.25s ease,
+      border-color 0.25s ease;
     animation: fadeUp 1s ease 0.65s both;
   }
   .hero__address:hover {
     color: var(--gold);
     border-bottom-color: var(--gold-dim);
   }
+  .hero__scroll {
+    position: absolute;
+    bottom: 2rem;
+    left: 0;
+    right: 0;
+    width: fit-content;
+    margin: 0 auto;
+    transform: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    animation: fadeUp 1s ease 0.8s both;
+    z-index: 3;
+    pointer-events: none;
+  }
+  .hero__scroll-text {
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(201, 168, 76, 0.5);
+  }
+  .hero__scroll-bar {
+    width: 1px;
+    height: 40px;
+    background: linear-gradient(to bottom, var(--gold), transparent);
+    animation: scrollPulse 2s ease-in-out infinite;
+  }
   @keyframes scrollPulse {
-    0%, 100% { opacity: 0.3; transform: scaleY(0.6); transform-origin: top; }
-    50% { opacity: 1; transform: scaleY(1); }
+    0%,
+    100% {
+      opacity: 0.3;
+      transform: scaleY(0.6);
+      transform-origin: top;
+    }
+    50% {
+      opacity: 1;
+      transform: scaleY(1);
+    }
   }
   @media (max-width: 600px) {
-    .hero { padding: 7rem 1.25rem 7rem; }
-    .hero__deco--tl, .hero__deco--br, .hero__deco--tr { display: none; }
-    .hero__desc { font-size: 1rem; max-width: 100%; }
-    .hero__actions { flex-direction: column; align-items: center; }
-    .btn { width: 100%; justify-content: center; }
-    .hero__hours-peek { flex-direction: column; gap: 0.25rem; text-align: center; }
-    .hero__address { text-align: center; }
-  }
+  .hero { padding: 7rem 1.25rem 4rem; }
+  .hero__deco--tl, .hero__deco--br, .hero__deco--tr { display: none; }
+  .hero__desc { font-size: 1rem; max-width: 100%; }
+  .hero__desc br { display: none; }
+  .hero__actions { flex-direction: column; align-items: center; margin-bottom: 0; }
+  .btn { width: 100%; justify-content: center; }
+  .hero__hours-peek { display: none; }
+  .hero__address { display: none; }
+  .hero__scroll { display: none; }
+}
 </style>
