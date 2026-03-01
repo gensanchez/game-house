@@ -1,5 +1,5 @@
 ---
-
+import logoImg from "../assets/game-house-logo2.png";
 ---
 
 <section class="hero" id="hero">
@@ -11,11 +11,11 @@
 
   <div class="hero__content">
     <p class="hero__eyebrow">Welcome to</p>
-    <h1 class="hero__title">
-      <span class="hero__title-main">THE GAME</span>
-      <span class="hero__title-accent">HOUSE</span>
-    </h1>
-    <p class="hero__tagline">A Board Game Café</p>
+    <img
+      src={logoImg.src}
+      alt="The Game House - A Board Game Café"
+      class="hero__logo-img"
+    />
 
     <div class="hero__divider">
       <span class="hero__divider-line"></span>
@@ -25,7 +25,7 @@
 
     <p class="hero__desc">
       Gather your crew. Pick a game. Let the night unfold.<br />
-      A cozy café where great coffee meets great company.
+      Good coffee meets great company.
     </p>
 
     <div class="hero__actions">
@@ -62,9 +62,19 @@
     </div>
 
     <div class="hero__hours-peek">
-      <span>Open Today</span>
-      <span class="hero__hours-time">Fri 5–10pm · Sat–Sun 2–10pm</span>
+      <span class="hero__hours-time">
+        Mon–Thu: 5–9pm &nbsp;|&nbsp; Fri: 5–10pm &nbsp;|&nbsp; Sat–Sun: 2–10pm
+      </span>
     </div>
+
+    <a
+      href="https://maps.google.com/?q=1726+Smith+Street+North+Providence+RI"
+      target="_blank"
+      rel="noopener noreferrer"
+      class="hero__address"
+    >
+      1726 Smith Street, North Providence
+    </a>
   </div>
 
   <div class="hero__scroll" aria-hidden="true">
@@ -82,37 +92,17 @@
     justify-content: center;
     text-align: center;
     overflow: hidden;
-    padding: 8rem 2rem 8rem; /* antes era 6rem, ahora 8rem */
+    padding: 8rem 2rem 8rem;
     background: var(--black);
   }
   .hero__bg-pattern {
     position: absolute;
     inset: 0;
     background-image:
-      radial-gradient(
-        circle at 20% 50%,
-        rgba(201, 168, 76, 0.06) 0%,
-        transparent 50%
-      ),
-      radial-gradient(
-        circle at 80% 20%,
-        rgba(201, 168, 76, 0.04) 0%,
-        transparent 40%
-      ),
-      repeating-linear-gradient(
-        0deg,
-        transparent,
-        transparent 60px,
-        rgba(201, 168, 76, 0.025) 60px,
-        rgba(201, 168, 76, 0.025) 61px
-      ),
-      repeating-linear-gradient(
-        90deg,
-        transparent,
-        transparent 60px,
-        rgba(201, 168, 76, 0.025) 60px,
-        rgba(201, 168, 76, 0.025) 61px
-      );
+      radial-gradient(circle at 20% 50%, rgba(201, 168, 76, 0.06) 0%, transparent 50%),
+      radial-gradient(circle at 80% 20%, rgba(201, 168, 76, 0.04) 0%, transparent 40%),
+      repeating-linear-gradient(0deg, transparent, transparent 60px, rgba(201, 168, 76, 0.025) 60px, rgba(201, 168, 76, 0.025) 61px),
+      repeating-linear-gradient(90deg, transparent, transparent 60px, rgba(201, 168, 76, 0.025) 60px, rgba(201, 168, 76, 0.025) 61px);
     pointer-events: none;
   }
   .hero__glow {
@@ -122,11 +112,7 @@
     transform: translate(-50%, -50%);
     width: 600px;
     height: 600px;
-    background: radial-gradient(
-      circle,
-      rgba(201, 168, 76, 0.08) 0%,
-      transparent 70%
-    );
+    background: radial-gradient(circle, rgba(201, 168, 76, 0.08) 0%, transparent 70%);
     pointer-events: none;
   }
   .hero__deco {
@@ -135,32 +121,12 @@
     pointer-events: none;
     user-select: none;
   }
-  .hero__deco--tl {
-    top: 12%;
-    left: 6%;
-    font-size: 8rem;
-    animation: float 8s ease-in-out infinite;
-  }
-  .hero__deco--br {
-    bottom: 15%;
-    right: 5%;
-    font-size: 10rem;
-    animation: float 10s ease-in-out infinite reverse;
-  }
-  .hero__deco--tr {
-    top: 18%;
-    right: 8%;
-    font-size: 4rem;
-    animation: float 12s ease-in-out infinite 2s;
-  }
+  .hero__deco--tl { top: 12%; left: 6%; font-size: 8rem; animation: float 8s ease-in-out infinite; }
+  .hero__deco--br { bottom: 15%; right: 5%; font-size: 10rem; animation: float 10s ease-in-out infinite reverse; }
+  .hero__deco--tr { top: 18%; right: 8%; font-size: 4rem; animation: float 12s ease-in-out infinite 2s; }
   @keyframes float {
-    0%,
-    100% {
-      transform: translateY(0);
-    }
-    50% {
-      transform: translateY(-18px);
-    }
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-18px); }
   }
   .hero__content {
     position: relative;
@@ -169,14 +135,8 @@
     animation: fadeUp 1s ease forwards;
   }
   @keyframes fadeUp {
-    from {
-      opacity: 0;
-      transform: translateY(40px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
+    from { opacity: 0; transform: translateY(40px); }
+    to   { opacity: 1; transform: translateY(0); }
   }
   .hero__eyebrow {
     font-size: 0.8rem;
@@ -188,33 +148,12 @@
     max-width: unset;
     animation: fadeUp 1s ease 0.1s both;
   }
-  .hero__title {
-    font-family: "Playfair Display", Georgia, serif;
-    font-weight: 900;
-    line-height: 0.95;
+  .hero__logo-img {
+    width: min(420px, 85vw);
+    height: auto;
+    mix-blend-mode: screen;
+    margin: 0 auto 0.5rem;
     animation: fadeUp 1s ease 0.2s both;
-  }
-  .hero__title-main {
-    display: block;
-    font-size: clamp(3.5rem, 10vw, 7.5rem);
-    color: var(--cream);
-    letter-spacing: -0.01em;
-  }
-  .hero__title-accent {
-    display: block;
-    font-size: clamp(3.5rem, 10vw, 7.5rem);
-    color: transparent;
-    -webkit-text-stroke: 2px var(--gold);
-    letter-spacing: 0.04em;
-  }
-  .hero__tagline {
-    font-family: "DM Serif Display", Georgia, serif;
-    font-size: clamp(1rem, 2.5vw, 1.4rem);
-    color: var(--cream-dim);
-    font-style: italic;
-    margin-top: 1rem;
-    max-width: unset;
-    animation: fadeUp 1s ease 0.3s both;
   }
   .hero__divider {
     display: flex;
@@ -233,10 +172,7 @@
   .hero__divider-line:last-child {
     background: linear-gradient(270deg, transparent, var(--gold-dim));
   }
-  .hero__divider-icon {
-    color: var(--gold);
-    font-size: 1.1rem;
-  }
+  .hero__divider-icon { color: var(--gold); font-size: 1.1rem; }
   .hero__desc {
     font-size: 1.1rem;
     color: var(--cream-dim);
@@ -257,7 +193,6 @@
     align-items: center;
     gap: 0.5rem;
     padding: 0.875rem 1.75rem;
-    font-family: "DM Sans", sans-serif;
     font-size: 0.85rem;
     font-weight: 600;
     letter-spacing: 0.08em;
@@ -267,10 +202,7 @@
     cursor: pointer;
     border: none;
   }
-  .btn--primary {
-    background: var(--gold);
-    color: var(--black);
-  }
+  .btn--primary { background: var(--gold); color: var(--black); }
   .btn--primary:hover {
     background: var(--gold-light);
     transform: translateY(-2px);
@@ -291,24 +223,29 @@
     align-items: center;
     gap: 0.75rem;
     margin-top: 2.5rem;
-    margin-bottom: 1rem; /* ← agrega esto */
+    margin-bottom: 0.5rem;
     font-size: 0.8rem;
     color: rgba(201, 191, 168, 0.6);
     letter-spacing: 0.05em;
     animation: fadeUp 1s ease 0.6s both;
   }
-  .hero__hours-peek span:first-child::before {
-    content: "";
-    display: inline-block;
-    width: 6px;
-    height: 6px;
-    background: #4caf50;
-    border-radius: 50%;
-    margin-right: 0.5rem;
-    box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.2);
+  .hero__hours-time { color: rgba(201, 191, 168, 0.8); }
+  .hero__address {
+    display: block;
+    align-items: center;
+    gap: 0.4rem;
+    margin-top: 0.4rem;
+    margin-bottom: 1rem;
+    font-size: 0.8rem;
+    color: rgba(201, 191, 168, 0.5);
+    letter-spacing: 0.05em;
+    border-bottom: 1px solid transparent;
+    transition: color 0.25s ease, border-color 0.25s ease;
+    animation: fadeUp 1s ease 0.65s both;
   }
-  .hero__hours-time {
-    color: rgba(201, 191, 168, 0.8);
+  .hero__address:hover {
+    color: var(--gold);
+    border-bottom-color: var(--gold-dim);
   }
   .hero__scroll {
     position: absolute;
@@ -336,45 +273,16 @@
     animation: scrollPulse 2s ease-in-out infinite;
   }
   @keyframes scrollPulse {
-    0%,
-    100% {
-      opacity: 0.3;
-      transform: scaleY(0.6);
-      transform-origin: top;
-    }
-    50% {
-      opacity: 1;
-      transform: scaleY(1);
-    }
+    0%, 100% { opacity: 0.3; transform: scaleY(0.6); transform-origin: top; }
+    50% { opacity: 1; transform: scaleY(1); }
   }
   @media (max-width: 600px) {
-    .hero {
-      padding: 7rem 1.25rem 7rem;
-    }
-    .hero__deco--tl,
-    .hero__deco--br,
-    .hero__deco--tr {
-      display: none;
-    }
-    .hero__title-accent {
-      -webkit-text-stroke-width: 1.5px;
-    }
-    .hero__desc {
-      font-size: 1rem;
-      max-width: 100%;
-    }
-    .hero__actions {
-      flex-direction: column;
-      align-items: center;
-    }
-    .btn {
-      width: 100%;
-      justify-content: center;
-    }
-    .hero__hours-peek {
-      flex-direction: column;
-      gap: 0.25rem;
-      text-align: center;
-    }
+    .hero { padding: 7rem 1.25rem 7rem; }
+    .hero__deco--tl, .hero__deco--br, .hero__deco--tr { display: none; }
+    .hero__desc { font-size: 1rem; max-width: 100%; }
+    .hero__actions { flex-direction: column; align-items: center; }
+    .btn { width: 100%; justify-content: center; }
+    .hero__hours-peek { flex-direction: column; gap: 0.25rem; text-align: center; }
+    .hero__address { text-align: center; }
   }
 </style>

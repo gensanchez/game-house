@@ -1,4 +1,5 @@
 ---
+
 ---
 
 <nav class="navbar" id="navbar">
@@ -8,6 +9,7 @@
       <span class="navbar__logo-sub">A Board Game Café</span>
     </a>
     <ul class="navbar__links">
+      <li><a href="/">Home</a></li>
       <li><a href="#about">About</a></li>
       <li><a href="#offers">What We Offer</a></li>
       <li><a href="#hours">Hours</a></li>
@@ -20,98 +22,166 @@
   </div>
   <div class="navbar__mobile" id="mobileMenu">
     <ul>
-      <li><a href="#about" class="mobile-link">About</a></li>
-      <li><a href="#offers" class="mobile-link">What We Offer</a></li>
-      <li><a href="#hours" class="mobile-link">Hours</a></li>
-      <li><a href="#visit" class="mobile-link">Visit</a></li>
-      <li><a href="#cta" class="mobile-link">Reserve a Spot</a></li>
+      <li><a href="/" class="mobile-link">Home</a></li>
+      <li><a href="/about" class="mobile-link">About</a></li>
+      <li><a href="/offers" class="mobile-link">What We Offer</a></li>
+      <li><a href="/#hours" class="mobile-link">Hours</a></li>
+      <li><a href="/#cta" class="mobile-link">Reserve a Spot</a></li>
     </ul>
   </div>
 </nav>
 
 <style>
-.navbar {
-  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-  padding: 1.25rem 0;
-  transition: background 0.4s ease, padding 0.4s ease, box-shadow 0.4s ease;
-}
-.navbar.scrolled {
-  background: rgba(13,13,13,0.97);
-  padding: 0.75rem 0;
-  box-shadow: 0 1px 0 rgba(201,168,76,0.15);
-  backdrop-filter: blur(12px);
-}
-.navbar__inner { display: flex; align-items: center; justify-content: space-between; }
-.navbar__logo { display: flex; flex-direction: column; line-height: 1; }
-.navbar__logo-text {
-  font-family: 'Playfair Display', Georgia, serif;
-  font-size: 1.05rem; font-weight: 900;
-  letter-spacing: 0.08em; color: #ffffff;
-}
-.navbar__logo-sub {
-  font-size: 0.6rem; letter-spacing: 0.2em;
-  text-transform: uppercase; color: #c9a84c; margin-top: 2px;
-}
-.navbar__links { display: flex; align-items: center; gap: 2rem; list-style: none; }
-.navbar__links li a {
-  font-size: 0.85rem; font-weight: 500;
-  letter-spacing: 0.05em; color: #c9bfa8;
-  transition: color 0.25s ease;
-}
-.navbar__links li a:hover { color: #c9a84c; }
-.navbar__cta-btn {
-  background: transparent !important;
-  border: 1px solid #c9a84c !important;
-  color: #c9a84c !important;
-  padding: 0.45rem 1.1rem !important;
-  border-radius: 2px;
-  font-size: 0.8rem !important;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  transition: background 0.25s ease, color 0.25s ease !important;
-}
-.navbar__cta-btn:hover { background: #c9a84c !important; color: #0d0d0d !important; }
-.navbar__hamburger {
-  display: none; flex-direction: column; gap: 5px;
-  background: none; border: none; cursor: pointer; padding: 4px;
-}
-.navbar__hamburger span {
-  display: block; width: 24px; height: 2px;
-  background: #c9a84c; transition: all 0.3s ease; border-radius: 2px;
-}
-.navbar__hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
-.navbar__hamburger.open span:nth-child(2) { opacity: 0; }
-.navbar__hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
-.navbar__mobile {
-  display: none; background: rgba(13,13,13,0.98);
-  padding: 1rem 2rem 2rem;
-  border-top: 1px solid rgba(201,168,76,0.15);
-}
-.navbar__mobile.open { display: block; }
-.navbar__mobile ul { list-style: none; display: flex; flex-direction: column; gap: 1.25rem; }
-.navbar__mobile a { font-size: 1.05rem; color: #c9bfa8; letter-spacing: 0.05em; transition: color 0.2s; }
-.navbar__mobile a:hover { color: #c9a84c; }
-@media (max-width: 768px) {
-  .navbar__links { display: none; }
-  .navbar__hamburger { display: flex; }
-}
+  .navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    padding: 1.25rem 0;
+    transition:
+      background 0.4s ease,
+      padding 0.4s ease,
+      box-shadow 0.4s ease;
+  }
+  .navbar.scrolled {
+    background: rgba(13, 13, 13, 0.97);
+    padding: 0.75rem 0;
+    box-shadow: 0 1px 0 rgba(201, 168, 76, 0.15);
+    backdrop-filter: blur(12px);
+  }
+  .navbar__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .navbar__logo {
+    display: flex;
+    flex-direction: column;
+    line-height: 1;
+  }
+  .navbar__logo-text {
+    font-family: "Playfair Display", Georgia, serif;
+    font-size: 1.05rem;
+    font-weight: 900;
+    letter-spacing: 0.08em;
+    color: #ffffff;
+  }
+  .navbar__logo-sub {
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #c9a84c;
+    margin-top: 2px;
+  }
+  .navbar__links {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    list-style: none;
+  }
+  .navbar__links li a {
+    font-size: 0.85rem;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    color: #c9bfa8;
+    transition: color 0.25s ease;
+  }
+  .navbar__links li a:hover {
+    color: #c9a84c;
+  }
+  .navbar__cta-btn {
+    background: transparent !important;
+    border: 1px solid #c9a84c !important;
+    color: #c9a84c !important;
+    padding: 0.45rem 1.1rem !important;
+    border-radius: 2px;
+    font-size: 0.8rem !important;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    transition:
+      background 0.25s ease,
+      color 0.25s ease !important;
+  }
+  .navbar__cta-btn:hover {
+    background: #c9a84c !important;
+    color: #0d0d0d !important;
+  }
+  .navbar__hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+  }
+  .navbar__hamburger span {
+    display: block;
+    width: 24px;
+    height: 2px;
+    background: #c9a84c;
+    transition: all 0.3s ease;
+    border-radius: 2px;
+  }
+  .navbar__hamburger.open span:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+  }
+  .navbar__hamburger.open span:nth-child(2) {
+    opacity: 0;
+  }
+  .navbar__hamburger.open span:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
+  }
+  .navbar__mobile {
+    display: none;
+    background: rgba(13, 13, 13, 0.98);
+    padding: 1rem 2rem 2rem;
+    border-top: 1px solid rgba(201, 168, 76, 0.15);
+  }
+  .navbar__mobile.open {
+    display: block;
+  }
+  .navbar__mobile ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+  .navbar__mobile a {
+    font-size: 1.05rem;
+    color: #c9bfa8;
+    letter-spacing: 0.05em;
+    transition: color 0.2s;
+  }
+  .navbar__mobile a:hover {
+    color: #c9a84c;
+  }
+  @media (max-width: 768px) {
+    .navbar__links {
+      display: none;
+    }
+    .navbar__hamburger {
+      display: flex;
+    }
+  }
 </style>
 
 <script>
-  const navbar = document.getElementById('navbar');
-  window.addEventListener('scroll', () => {
-    navbar?.classList.toggle('scrolled', window.scrollY > 50);
+  const navbar = document.getElementById("navbar");
+  window.addEventListener("scroll", () => {
+    navbar?.classList.toggle("scrolled", window.scrollY > 50);
   });
-  const hamburger = document.getElementById('hamburger');
-  const mobileMenu = document.getElementById('mobileMenu');
-  hamburger?.addEventListener('click', () => {
-    hamburger.classList.toggle('open');
-    mobileMenu?.classList.toggle('open');
+  const hamburger = document.getElementById("hamburger");
+  const mobileMenu = document.getElementById("mobileMenu");
+  hamburger?.addEventListener("click", () => {
+    hamburger.classList.toggle("open");
+    mobileMenu?.classList.toggle("open");
   });
-  document.querySelectorAll('.mobile-link').forEach(link => {
-    link.addEventListener('click', () => {
-      hamburger?.classList.remove('open');
-      mobileMenu?.classList.remove('open');
+  document.querySelectorAll(".mobile-link").forEach((link) => {
+    link.addEventListener("click", () => {
+      hamburger?.classList.remove("open");
+      mobileMenu?.classList.remove("open");
     });
   });
 </script>

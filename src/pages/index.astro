@@ -16,10 +16,20 @@ import Footer from '../components/Footer.astro';
   <Navbar />
   <main>
     <Hero />
-    <About />
-    <Offers />
+    <div class="desktop-only">
+      <About />
+      <Offers />
+    </div>
     <HoursLocation />
     <CTA />
   </main>
   <Footer />
 </Layout>
+
+<style>
+  @media (max-width: 768px) {
+    .desktop-only {
+      display: none;
+    }
+  }
+</style>
