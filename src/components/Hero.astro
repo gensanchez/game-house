@@ -76,11 +76,6 @@ import logoImg from "../assets/game-house-logo2.png";
       1726 Smith Street, North Providence
     </a>
   </div>
-
-  <div class="hero__scroll" aria-hidden="true">
-    <span class="hero__scroll-text">Scroll</span>
-    <div class="hero__scroll-bar"></div>
-  </div>
 </section>
 
 <style>
@@ -246,31 +241,6 @@ import logoImg from "../assets/game-house-logo2.png";
   .hero__address:hover {
     color: var(--gold);
     border-bottom-color: var(--gold-dim);
-  }
-  .hero__scroll {
-    position: absolute;
-    bottom: 2rem;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.5rem;
-    animation: fadeUp 1s ease 0.8s both;
-    z-index: 3;
-    pointer-events: none;
-  }
-  .hero__scroll-text {
-    font-size: 0.65rem;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: rgba(201, 168, 76, 0.5);
-  }
-  .hero__scroll-bar {
-    width: 1px;
-    height: 40px;
-    background: linear-gradient(to bottom, var(--gold), transparent);
-    animation: scrollPulse 2s ease-in-out infinite;
   }
   @keyframes scrollPulse {
     0%, 100% { opacity: 0.3; transform: scaleY(0.6); transform-origin: top; }
