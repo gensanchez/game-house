@@ -1,0 +1,281 @@
+---
+---
+
+<section class="pricing" id="pricing">
+  <div class="container">
+    <div class="pricing__header reveal">
+      <span class="section-label">Pricing</span>
+      <h2 class="pricing__heading">Simple & Transparent</h2>
+      <div class="divider divider--center"></div>
+      <p class="pricing__subheading">
+        Pick your table, grab a game, and stay as long as you like.
+      </p>
+    </div>
+
+    <div class="pricing__grid">
+
+      <!-- Per Table -->
+      <div class="pricing__card reveal">
+        <div class="pricing__card-header">
+          <span class="pricing__icon">🪑</span>
+          <h3 class="pricing__card-title">Per Table</h3>
+          <p class="pricing__card-desc">Reserved seating for your group</p>
+        </div>
+        <div class="pricing__rows">
+          <div class="pricing__row pricing__row--section-header">
+            <span class="pricing__row-label">2-Top <small class="pricing__row-sub">Up to 2 guests</small></span>
+            <span class="pricing__row-price pricing__row-price--sm">1hr $15 · 2hr $25</span>
+          </div>
+          <div class="pricing__row pricing__row--section-header">
+            <span class="pricing__row-label">4-Top <small class="pricing__row-sub">Up to 4 guests</small></span>
+            <span class="pricing__row-price pricing__row-price--sm">1hr $25 · 2hr $40</span>
+          </div>
+          <div class="pricing__row pricing__row--section-header">
+            <span class="pricing__row-label">6-Top <small class="pricing__row-sub">Up to 6 guests</small></span>
+            <span class="pricing__row-price pricing__row-price--sm">1hr $30 · 2hr $45</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Individual -->
+      <div class="pricing__card reveal">
+        <div class="pricing__card-header">
+          <span class="pricing__icon">🎲</span>
+          <h3 class="pricing__card-title">Individual</h3>
+          <p class="pricing__card-desc">Per person, any table</p>
+        </div>
+        <div class="pricing__rows">
+          <div class="pricing__row">
+            <span class="pricing__row-label">1 Hour</span>
+            <span class="pricing__row-price">$10<small>/person</small></span>
+          </div>
+          <div class="pricing__row">
+            <span class="pricing__row-label">2 Hours</span>
+            <span class="pricing__row-price">$15<small>/person</small></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Private Room -->
+      <div class="pricing__card reveal">
+        <div class="pricing__card-header">
+          <span class="pricing__icon">🏠</span>
+          <h3 class="pricing__card-title">Private Room</h3>
+          <p class="pricing__card-desc">Up to 12 guests · Reservation required</p>
+        </div>
+        <div class="pricing__rows">
+          <div class="pricing__row">
+            <span class="pricing__row-label">2 Hours</span>
+            <span class="pricing__row-price">$125</span>
+          </div>
+          <div class="pricing__row">
+            <span class="pricing__row-label">3 Hours</span>
+            <span class="pricing__row-price">$170</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="pricing__footer reveal">
+      <p class="pricing__footer-text">
+        For full pricing, larger groups, or custom packages — reach out directly.
+      </p>
+      <div class="pricing__footer-actions">
+        <a
+          href="https://instagram.com/thegamehouseri"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="pricing__footer-btn pricing__footer-btn--insta"
+        >
+          DM us on Instagram
+        </a>
+        <a href="tel:+14015551234" class="pricing__footer-btn pricing__footer-btn--call">
+          or Give Us a Call
+        </a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<style>
+  .pricing {
+    padding: var(--section-pad);
+    background: var(--black);
+    position: relative;
+  }
+  .pricing::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(201, 168, 76, 0.3), transparent);
+  }
+  .pricing__header {
+    text-align: center;
+    margin-bottom: 4rem;
+  }
+  .pricing__heading {
+    font-size: clamp(2rem, 5vw, 3rem);
+    color: var(--cream);
+    margin-bottom: 0.25rem;
+  }
+  .pricing__subheading {
+    color: var(--cream-dim);
+    font-size: 1.05rem;
+    max-width: 420px;
+    margin: 0 auto;
+    line-height: 1.7;
+  }
+  .pricing__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+    align-items: stretch;
+  }
+  .pricing__card {
+    background: var(--black-card);
+    border: 1px solid rgba(201, 168, 76, 0.12);
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    transition: border-color 0.3s ease;
+  }
+  .pricing__card:hover { border-color: rgba(201, 168, 76, 0.3); }
+  .pricing__card-header {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+  .pricing__icon { font-size: 1.75rem; margin-bottom: 0.25rem; }
+  .pricing__card-title {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--cream);
+    line-height: 1.2;
+  }
+  .pricing__card-desc {
+    font-size: 0.78rem;
+    color: var(--gold);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    max-width: unset;
+  }
+  .pricing__rows {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid rgba(201, 168, 76, 0.1);
+    flex: 1;
+  }
+  .pricing__row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.875rem 1rem;
+    border-bottom: 1px solid rgba(201, 168, 76, 0.08);
+    transition: background 0.2s ease;
+  }
+  .pricing__row:last-child { border-bottom: none; }
+  .pricing__row:hover { background: rgba(201, 168, 76, 0.04); }
+  .pricing__row--section-header {
+    background: rgba(201, 168, 76, 0.05);
+    padding: 0.75rem 1rem;
+  }
+  .pricing__row--section-header:hover { background: rgba(201, 168, 76, 0.07); }
+  .pricing__row-label {
+    font-size: 0.875rem;
+    color: var(--cream-dim);
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+  }
+  .pricing__row--section-header .pricing__row-label {
+    font-weight: 600;
+    color: var(--cream);
+    font-size: 0.8rem;
+    letter-spacing: 0.05em;
+  }
+  .pricing__row-sub {
+    font-size: 0.7rem;
+    color: var(--gold);
+    letter-spacing: 0.05em;
+    font-weight: 400;
+  }
+  .pricing__row-price {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--gold-light);
+    white-space: nowrap;
+  }
+  .pricing__row-price--sm {
+    font-size: 0.8rem;
+    color: var(--gold);
+    white-space: nowrap;
+  }
+  .pricing__row-price small {
+    font-size: 0.65rem;
+    font-weight: 400;
+    color: var(--cream-dim);
+    margin-left: 2px;
+  }
+  .pricing__footer {
+    text-align: center;
+    padding: 2rem;
+    border: 1px solid rgba(201, 168, 76, 0.12);
+    background: var(--black-card);
+  }
+  .pricing__footer-text {
+    font-size: 1rem;
+    color: var(--cream-dim);
+    margin-bottom: 1.25rem;
+    max-width: unset;
+  }
+  .pricing__footer-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .pricing__footer-btn {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.7rem 1.5rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    border-radius: 2px;
+    transition: all 0.3s ease;
+  }
+  .pricing__footer-btn--insta {
+    background: var(--gold);
+    color: var(--black);
+  }
+  .pricing__footer-btn--insta:hover {
+    background: var(--gold-light);
+    transform: translateY(-2px);
+  }
+  .pricing__footer-btn--call {
+    background: transparent;
+    color: var(--cream);
+    border: 1px solid rgba(245, 239, 224, 0.2);
+  }
+  .pricing__footer-btn--call:hover {
+    border-color: var(--gold);
+    color: var(--gold);
+    transform: translateY(-2px);
+  }
+
+  @media (max-width: 900px) {
+    .pricing__grid { grid-template-columns: 1fr; gap: 1rem; align-items: start; }
+  }
+
+  @media (max-width: 600px) {
+    .pricing__footer { padding: 1.5rem 1.25rem; }
+    .pricing__footer-btn { width: 100%; justify-content: center; }
+    .pricing__footer-actions { flex-direction: column; }
+  }
+</style>
