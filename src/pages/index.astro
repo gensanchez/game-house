@@ -1,13 +1,13 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import Navbar from '../components/Navbar.astro';
-import Hero from '../components/Hero.astro';
-import About from '../components/About.astro';
-import Offers from '../components/Offers.astro';
-import HoursLocation from '../components/HoursLocation.astro';
-import CTA from '../components/CTA.astro';
-import Footer from '../components/Footer.astro';
-import Pricing from '../components/Pricing.astro';
+import Layout from "../layouts/Layout.astro";
+import Navbar from "../components/Navbar.astro";
+import Hero from "../components/Hero.astro";
+import About from "../components/About.astro";
+import Offers from "../components/Offers.astro";
+import HoursLocation from "../components/HoursLocation.astro";
+import CTA from "../components/CTA.astro";
+import Footer from "../components/Footer.astro";
+import Pricing from "../components/Pricing.astro";
 ---
 
 <Layout
@@ -17,21 +17,11 @@ import Pricing from '../components/Pricing.astro';
   <Navbar />
   <main>
     <Hero />
-    <div class="desktop-only">
-      <About />
-      <Offers />
-      <Pricing />
-    </div>
+    <About />
+    <Offers />
+    <Pricing />
     <HoursLocation />
     <CTA />
   </main>
   <Footer />
 </Layout>
-
-<style>
-  @media (max-width: 768px) {
-    .desktop-only {
-      display: none;
-    }
-  }
-</style>
