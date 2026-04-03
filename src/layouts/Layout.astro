@@ -1,5 +1,5 @@
 ---
-import '../styles/global.css';
+import "../styles/global.css";
 
 export interface Props {
   title?: string;
@@ -8,11 +8,11 @@ export interface Props {
 
 const {
   title = "The Game House | A Board Game Café",
-  description = "A cozy board game café in North Providence. Gather your crew, pick a game, and let the good times roll."
+  description = "A cozy board game café in North Providence. Gather your crew, pick a game, and let the good times roll.",
 } = Astro.props;
 ---
 
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -40,6 +40,15 @@ const {
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="/game-house.ico" />
     <link rel="apple-touch-icon" href="/game-house.png" />
+
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-EB076MTGF5"></script>
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-EB076MTGF5');
+    </script>
   </head>
   <body>
     <slot />
@@ -48,14 +57,16 @@ const {
         (entries) => {
           entries.forEach((entry) => {
             if (entry.isIntersecting) {
-              entry.target.classList.add('visible');
+              entry.target.classList.add("visible");
               observer.unobserve(entry.target);
             }
           });
         },
-        { threshold: 0.12 }
+        { threshold: 0.12 },
       );
-      document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
+      document
+        .querySelectorAll(".reveal")
+        .forEach((el) => observer.observe(el));
     </script>
   </body>
 </html>
