@@ -88,3 +88,29 @@ img { max-width: 100%; display: block; }
 @media (max-width: 768px) {
   :root { --section-pad: 4rem 1.25rem; }
 }
+
+.pricing__row--standalone {
+  border: 1px solid rgba(201, 168, 76, 0.1);
+}
+
+.pricing__hero-price {
+  text-align: center;
+  padding: 1rem 0 0.5rem;
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+}
+.pricing__hero-divider {
+  height: 1px;
+  background: rgba(201, 168, 76, 0.15);
+  margin: 0 0 0.5rem;
+}
+.pricing__hero-amount {
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: var(--gold);
+}
+.pricing__card-note--center {
+  text-align: center;
+}
+
