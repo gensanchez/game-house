@@ -36,6 +36,21 @@
             <strong>Give Us a Call</strong>
           </span>
         </a>
+
+        <button
+          class="cta__btn cta__btn--newsletter"
+          onclick="ml('show', 'LHQ4z1', true)"
+        >
+          <span class="cta__btn-icon">
+            <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+            </svg>
+          </span>
+          <span class="cta__btn-text">
+            <small>Stay in the Loop</small>
+            <strong>Join Our Newsletter</strong>
+          </span>
+        </button>
       </div>
 
       <p class="cta__address">📍 1726 Smith Street, North Providence</p>
@@ -100,6 +115,8 @@
     text-align: left;
     transition: all 0.3s ease;
     min-width: 220px;
+    font-family: inherit;
+    cursor: pointer;
   }
   .cta__btn-icon {
     display: flex;
@@ -119,6 +136,9 @@
   .cta__btn--insta { background: transparent; color: var(--cream); border: 1px solid rgba(245, 239, 224, 0.2); }
   .cta__btn--insta .cta__btn-icon { background: linear-gradient(135deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); color: white; }
   .cta__btn--insta:hover { border-color: rgba(245, 239, 224, 0.4); transform: translateY(-3px); background: rgba(255, 255, 255, 0.03); }
+  .cta__btn--newsletter { background: transparent; color: var(--cream); border: 1px solid rgba(245, 239, 224, 0.2); }
+  .cta__btn--newsletter .cta__btn-icon { background: rgba(201, 168, 76, 0.15); color: var(--gold); }
+  .cta__btn--newsletter:hover { border-color: var(--gold); transform: translateY(-3px); background: rgba(201, 168, 76, 0.05); }
   .cta__address { font-size: 0.85rem; color: rgba(201, 191, 168, 0.5); letter-spacing: 0.05em; max-width: unset; margin: 0 auto; }
   .cta__deco { position: absolute; inset: 0; pointer-events: none; user-select: none; }
   .cta__piece { position: absolute; color: rgba(201, 168, 76, 0.05); }

@@ -35,18 +35,35 @@
       <h3 class="pricing__card-title">Memberships</h3>
       <p class="pricing__card-desc">Monthly unlimited play</p>
     </div>
-    <div class="pricing__row pricing__row--standalone">
+    <a
+      href="https://square.link/u/nchb93kT?src=sheet"
+      target="_blank"
+      rel="noopener noreferrer"
+      class="pricing__row pricing__row--standalone pricing__row--link"
+    >
       <span class="pricing__row-label">👤 Player One</span>
-      <span class="pricing__row-price pricing__row-price--sm">$25/mo</span>
-    </div>
-    <div class="pricing__row pricing__row--standalone">
+      <span class="pricing__row-price pricing__row-price--sm">
+        $25/mo <span class="pricing__row-arrow">→</span>
+      </span>
+    </a>
+    <a
+      href="https://square.link/u/rjRXVYiu?src=sheet"
+      target="_blank"
+      rel="noopener noreferrer"
+      class="pricing__row pricing__row--standalone pricing__row--link"
+    >
       <span class="pricing__row-label">👤👤 Multiplayer</span>
-      <span class="pricing__row-price pricing__row-price--sm">$45/mo</span>
-    </div>
+      <span class="pricing__row-price pricing__row-price--sm">
+        $45/mo <span class="pricing__row-arrow">→</span>
+      </span>
+    </a>
     <p class="pricing__card-note pricing__card-note--center">
       Player One includes unlimited play for one, plus early access and discounted event tickets.
       <br /><br />
       Multiplayer includes 2 Player One memberships with the same benefits.
+    </p>
+    <p class="pricing__card-note pricing__card-note--center">
+      Sign up using recurring payment option.
     </p>
   </div>
 
@@ -191,6 +208,25 @@
   }
   .pricing__row:hover {
     background: rgba(201, 168, 76, 0.04);
+  }
+  .pricing__row--link {
+    text-decoration: none;
+    cursor: pointer;
+    border: 1px solid rgba(201, 168, 76, 0.25);
+  }
+  .pricing__row--link:hover {
+    background: rgba(201, 168, 76, 0.08);
+    border-color: rgba(201, 168, 76, 0.5);
+  }
+  .pricing__row--link:hover .pricing__row-price--sm {
+    color: var(--gold-light);
+  }
+  .pricing__row-arrow {
+    display: inline-block;
+    transition: transform 0.25s ease;
+  }
+  .pricing__row--link:hover .pricing__row-arrow {
+    transform: translateX(3px);
   }
   .pricing__row--section-header {
     background: rgba(201, 168, 76, 0.05);
