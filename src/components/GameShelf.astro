@@ -1,0 +1,355 @@
+---
+import {
+  type Game,
+  slugify,
+  formatPlayers,
+  formatTime,
+  difficultyLabel,
+  spineStyles,
+} from "../data/games";
+
+export interface Props {
+  games: Game[];
+  label?: string;
+  blurb?: string;
+  id?: string;
+  /** Spines link to the full library instead of opening the detail card. */
+  linked?: boolean;
+  /** Also render a list version of the shelf (shown when a parent has the `is-list` class). */
+  withList?: boolean;
+}
+
+const { games, label, blurb, id, linked = false, withList = false } = Astro.props;
+const styles = spineStyles(games);
+
+const dataAttrs = (game: Game) => ({
+  "data-game": slugify(game.name),
+  "data-name": game.name,
+  "data-category": game.category,
+  "data-min": game.players[0],
+  "data-max": game.players[1],
+  "data-players": formatPlayers(game.players),
+  "data-time": game.time,
+  "data-time-label": formatTime(game.time),
+  "data-difficulty": game.difficulty,
+  "data-difficulty-label": difficultyLabel[game.difficulty],
+  "data-desc": game.desc,
+});
+---
+
+<section class="shelf" id={id} data-shelf>
+  {label && (
+    <header class="shelf__header">
+      <div>
+        <h3 class="shelf__label">{label}</h3>
+        {blurb && <p class="shelf__blurb">{blurb}</p>}
+      </div>
+      <span class="shelf__count" data-shelf-count>{games.length} games</span>
+    </header>
+  )}
+
+  <div class="shelf__case">
+    <div class="shelf__row">
+      {games.map((game, i) => {
+        const Tag = linked ? "a" : "button";
+        const s = styles[i];
+        return (
+          <div class="shelf__slot">
+            <Tag
+              class="spine"
+              href={linked ? `/games?game=${slugify(game.name)}` : undefined}
+              type={linked ? undefined : "button"}
+              aria-label={`${game.name} — ${formatPlayers(game.players)} players, ${formatTime(game.time)}`}
+              {...dataAttrs(game)}
+              style={`--spine-bg:${s.bg};--spine-fg:${s.fg};--spine-h:${s.height}px;--spine-pad:${s.pad}px`}
+            >
+              <span class="spine__title">{game.name}</span>
+              <span class="spine__players" aria-hidden="true">{formatPlayers(game.players)}</span>
+            </Tag>
+          </div>
+        );
+      })}
+    </div>
+  </div>
+
+  {withList && (
+    <div class="shelf__list" role="list">
+      <div class="list__head" aria-hidden="true">
+        <span></span><span>Game</span><span>Players</span><span>Time</span><span>Difficulty</span>
+      </div>
+      {games.map((game, i) => (
+        <button
+          type="button"
+          class="game-row"
+          role="listitem"
+          {...dataAttrs(game)}
+          style={`--spine-bg:${styles[i].bg}`}
+        >
+          <span class="game-row__swatch" aria-hidden="true"></span>
+          <span class="game-row__name">{game.name}</span>
+          <span class="game-row__meta game-row__players">{formatPlayers(game.players)} <small>players</small></span>
+          <span class="game-row__meta game-row__time">{formatTime(game.time)}</span>
+          <span class="game-row__meta game-row__difficulty">
+            <span class="game-row__dots" aria-hidden="true">
+              {[1, 2, 3].map((n) => <i class={n <= game.difficulty ? "on" : ""}></i>)}
+            </span>
+            {difficultyLabel[game.difficulty]}
+          </span>
+        </button>
+      ))}
+    </div>
+  )}
+</section>
+
+<style>
+  .shelf {
+    --row-h: 214px;
+    --board-h: 18px;
+    margin-bottom: 3rem;
+    scroll-margin-top: 9rem;
+  }
+
+  .shelf__header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 0.9rem;
+    transition: opacity 0.3s ease;
+  }
+  .shelf.is-empty .shelf__header { opacity: 0.35; }
+  .shelf__label {
+    font-size: clamp(1.3rem, 3vw, 1.6rem);
+    color: var(--cream);
+  }
+  .shelf__blurb {
+    font-size: 0.88rem;
+    color: var(--cream-dim);
+    margin-top: 0.15rem;
+  }
+  .shelf__count {
+    flex-shrink: 0;
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+
+  /* Wooden bookcase: side panels + a back wall, with a board under every row of boxes. */
+  .shelf__case {
+    position: relative;
+    border-left: 12px solid #3a2716;
+    border-right: 12px solid #3a2716;
+    border-top: 12px solid #3a2716;
+    border-radius: 3px 3px 0 0;
+    background:
+      linear-gradient(90deg, rgba(0, 0, 0, 0.45), transparent 8%, transparent 92%, rgba(0, 0, 0, 0.45)),
+      radial-gradient(ellipse at 50% 0%, rgba(201, 168, 76, 0.07), transparent 70%),
+      #120e0a;
+    box-shadow:
+      inset 0 12px 18px -8px rgba(0, 0, 0, 0.8),
+      0 18px 30px -12px rgba(0, 0, 0, 0.7);
+  }
+
+  .shelf__row {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 0 1rem;
+    background: repeating-linear-gradient(
+      to bottom,
+      transparent 0,
+      transparent var(--row-h),
+      #8a6440 var(--row-h),
+      #6b4a2b calc(var(--row-h) + 2px),
+      #5a3d22 calc(var(--row-h) + 10px),
+      #3e2a17 calc(var(--row-h) + var(--board-h))
+    );
+  }
+
+  .shelf__slot {
+    height: var(--row-h);
+    margin-bottom: var(--board-h);
+    display: flex;
+    align-items: flex-end;
+    margin-right: 2px;
+  }
+
+  /* ── Box spine ── */
+  .spine {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: var(--spine-h);
+    min-width: 38px;
+    padding: 1.4rem var(--spine-pad) 0.45rem;
+    background: var(--spine-bg);
+    color: var(--spine-fg);
+    border: none;
+    border-radius: 2px 2px 0 0;
+    cursor: pointer;
+    font: inherit;
+    text-decoration: none;
+    box-shadow:
+      inset 3px 0 0 rgba(255, 255, 255, 0.1),
+      inset -4px 0 0 rgba(0, 0, 0, 0.28),
+      2px 0 4px rgba(0, 0, 0, 0.4);
+    transition:
+      transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+      opacity 0.3s ease,
+      filter 0.3s ease,
+      box-shadow 0.3s ease;
+  }
+  /* Printed bands at the top and bottom of the box */
+  .spine::before,
+  .spine::after {
+    content: "";
+    position: absolute;
+    left: 4px;
+    right: 6px;
+    height: 2px;
+    background: currentColor;
+    opacity: 0.35;
+  }
+  .spine::before { top: 0.85rem; }
+  .spine::after { bottom: 1.6rem; }
+
+  .spine__title {
+    writing-mode: vertical-rl;
+    height: calc(var(--spine-h) - 3.6rem);
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 0.74rem;
+    line-height: 1.15;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    text-align: center;
+    overflow: hidden;
+  }
+  .spine__players {
+    margin-top: auto;
+    font-size: 0.58rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    opacity: 0.8;
+    white-space: nowrap;
+  }
+
+  /* Pull the box off the shelf on hover */
+  .spine:hover,
+  .spine:focus-visible {
+    transform: translateY(-12px);
+    box-shadow:
+      inset 3px 0 0 rgba(255, 255, 255, 0.1),
+      inset -4px 0 0 rgba(0, 0, 0, 0.28),
+      0 10px 18px rgba(0, 0, 0, 0.55);
+  }
+  .spine:focus-visible {
+    outline: 2px solid var(--gold);
+    outline-offset: 2px;
+  }
+
+  /* Filter states (toggled by the library page) */
+  .spine.is-dim {
+    opacity: 0.16;
+    filter: grayscale(0.8);
+  }
+  .spine.is-dim:hover { opacity: 0.5; }
+
+  /* ── List view ── */
+  .shelf__list { display: none; }
+  :global(.is-list) .shelf__case { display: none; }
+  :global(.is-list) .shelf__list { display: block; }
+  :global(.is-list) .shelf.is-empty { display: none; }
+  :global(.is-list) .shelf { margin-bottom: 2.5rem; }
+
+  .shelf__list {
+    border: 1px solid rgba(201, 168, 76, 0.15);
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
+  .list__head,
+  .game-row {
+    display: grid;
+    grid-template-columns: 6px minmax(0, 1fr) 110px 90px 130px;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.7rem 1.1rem 0.7rem 0.9rem;
+  }
+  .list__head {
+    background: var(--black-soft);
+    font-size: 0.62rem;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+  .game-row {
+    width: 100%;
+    background: var(--black-card);
+    border: none;
+    border-top: 1px solid rgba(201, 168, 76, 0.08);
+    color: var(--cream);
+    font: inherit;
+    text-align: left;
+    cursor: pointer;
+    transition: background 0.2s ease;
+  }
+  .game-row:hover { background: #1e1c18; }
+  .game-row:focus-visible { outline: 2px solid var(--gold); outline-offset: -2px; }
+  .game-row.is-dim { display: none; }
+  .game-row__swatch {
+    width: 6px;
+    height: 28px;
+    border-radius: 1px;
+    background: var(--spine-bg);
+  }
+  .game-row__name {
+    font-family: var(--font-serif);
+    font-size: 1.02rem;
+  }
+  .game-row__meta {
+    font-size: 0.85rem;
+    color: var(--cream-dim);
+    white-space: nowrap;
+  }
+  .game-row__players small { font-size: 0.75rem; opacity: 0.7; }
+  .game-row__difficulty { display: flex; align-items: center; gap: 0.45rem; }
+  .game-row__dots { display: inline-flex; gap: 3px; }
+  .game-row__dots i {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    border: 1px solid var(--gold);
+  }
+  .game-row__dots i.on { background: var(--gold); }
+
+  @media (max-width: 680px) {
+    .list__head { display: none; }
+    .game-row {
+      grid-template-columns: 6px auto auto 1fr;
+      grid-template-areas:
+        "swatch name name name"
+        "swatch players time difficulty";
+      gap: 0.2rem 1rem;
+    }
+    .game-row__swatch { grid-area: swatch; height: 100%; min-height: 40px; }
+    .game-row__name { grid-area: name; }
+    .game-row__players { grid-area: players; }
+    .game-row__time { grid-area: time; }
+    .game-row__difficulty { grid-area: difficulty; justify-self: end; }
+  }
+
+  @media (max-width: 580px) {
+    .shelf { --row-h: 190px; }
+    .shelf__case { border-width: 8px; }
+    .shelf__row { padding: 0 0.5rem; }
+    .spine { min-width: 34px; height: calc(var(--spine-h) - 22px); }
+    .spine__title { height: calc(var(--spine-h) - 22px - 3.6rem); font-size: 0.68rem; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .spine { transition: none; }
+  }
+</style>

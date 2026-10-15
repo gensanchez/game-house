@@ -4,17 +4,18 @@
 
 <nav class="navbar" id="navbar">
   <div class="navbar__inner container">
-    <a href="#hero" class="navbar__logo">
+    <a href="/#hero" class="navbar__logo">
       <span class="navbar__logo-text">THE GAME HOUSE</span>
       <span class="navbar__logo-sub">A Board Game Café</span>
     </a>
     <ul class="navbar__links">
       <li><a href="/">Home</a></li>
-      <li><a href="#about">About</a></li>
-      <li><a href="#offers">What We Offer</a></li>
-      <li><a href="#hours">Hours</a></li>
-      <li><a href="#visit">Visit</a></li>
-      <li><a href="#cta" class="navbar__cta-btn">Reserve a Spot</a></li>
+      <li><a href="/#about">About</a></li>
+      <li><a href="/#offers">What We Offer</a></li>
+      <li><a href="/games">Games</a></li>
+      <li><a href="/#hours">Hours</a></li>
+      <li><a href="/#visit">Visit</a></li>
+      <li><a href="/#cta" class="navbar__cta-btn">Reserve a Spot</a></li>
     </ul>
     <button class="navbar__hamburger" id="hamburger" aria-label="Toggle menu">
       <span></span><span></span><span></span>
@@ -23,11 +24,12 @@
   <div class="navbar__mobile" id="mobileMenu">
     <ul>
       <li><a href="/" class="mobile-link">Home</a></li>
-      <li><a href="#about" class="mobile-link">About</a></li>
-      <li><a href="#offers" class="mobile-link">What We Offer</a></li>
-      <li><a href="#pricing" class="mobile-link">Pricing</a></li>
-      <li><a href="#hours" class="mobile-link">Hours</a></li>
-      <li><a href="#cta" class="mobile-link">Reserve a Spot</a></li>
+      <li><a href="/#about" class="mobile-link">About</a></li>
+      <li><a href="/#offers" class="mobile-link">What We Offer</a></li>
+      <li><a href="/games" class="mobile-link">Games</a></li>
+      <li><a href="/#pricing" class="mobile-link">Pricing</a></li>
+      <li><a href="/#hours" class="mobile-link">Hours</a></li>
+      <li><a href="/#cta" class="mobile-link">Reserve a Spot</a></li>
     </ul>
   </div>
 </nav>
@@ -55,6 +57,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    gap: 1.5rem;
   }
   .navbar__logo {
     display: flex;
@@ -86,6 +89,7 @@
     font-weight: 500;
     letter-spacing: 0.05em;
     color: #c9bfa8;
+    white-space: nowrap;
     transition: color 0.25s ease;
   }
   .navbar__links li a:hover {
@@ -157,6 +161,11 @@
   }
   .navbar__mobile a:hover {
     color: #c9a84c;
+  }
+  @media (max-width: 1024px) {
+    .navbar__links {
+      gap: 1.1rem;
+    }
   }
   @media (max-width: 768px) {
     .navbar__links {

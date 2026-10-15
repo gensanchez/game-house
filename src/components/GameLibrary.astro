@@ -1,0 +1,77 @@
+---
+import GameShelf from "./GameShelf.astro";
+import { games } from "../data/games";
+
+const picks = games.filter((g) => g.staffPick);
+---
+
+<section class="library-teaser" id="games">
+  <div class="container">
+    <div class="library-teaser__header reveal">
+      <span class="section-label">The Library</span>
+      <h2 class="library-teaser__heading">Our Game Shelf</h2>
+      <div class="divider divider--center"></div>
+      <p class="library-teaser__sub">
+        {games.length} games on our shelves — here are a few staff favorites. Tap a box to learn more.
+      </p>
+    </div>
+
+    <div class="reveal">
+      <GameShelf games={picks} linked />
+    </div>
+
+    <div class="library-teaser__action reveal">
+      <a href="/games" class="library-teaser__btn">Browse all {games.length} games →</a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .library-teaser {
+    padding: var(--section-pad);
+    background: var(--black-soft);
+    position: relative;
+  }
+  .library-teaser::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(201, 168, 76, 0.3), transparent);
+  }
+  .library-teaser__header {
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+  .library-teaser__heading {
+    font-size: clamp(2rem, 5vw, 3rem);
+    color: var(--cream);
+    margin-bottom: 0.25rem;
+  }
+  .library-teaser__sub {
+    margin: 0 auto;
+    max-width: 480px;
+  }
+  .library-teaser__action {
+    text-align: center;
+    margin-top: -0.5rem;
+  }
+  .library-teaser__btn {
+    display: inline-block;
+    border: 1px solid var(--gold);
+    color: var(--gold);
+    font-size: 0.82rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 0.85rem 1.75rem;
+    border-radius: 2px;
+    transition: background 0.25s ease, color 0.25s ease;
+  }
+  .library-teaser__btn:hover {
+    background: var(--gold);
+    color: var(--black);
+  }
+</style>

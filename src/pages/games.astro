@@ -1,0 +1,555 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Navbar from "../components/Navbar.astro";
+import Footer from "../components/Footer.astro";
+import GameShelf from "../components/GameShelf.astro";
+import { games, shelves } from "../data/games";
+
+const byName = (a: { name: string }, b: { name: string }) => a.name.localeCompare(b.name);
+const filledShelves = shelves
+  .map((shelf) => ({ ...shelf, games: games.filter((g) => g.category === shelf.key).sort(byName) }))
+  .filter((shelf) => shelf.games.length > 0);
+---
+
+<Layout
+  title="Game Library | The Game House · North Providence"
+  description={`Browse all ${games.length} board games on our shelves — strategy, party, co-op, trivia, classics and more.`}
+>
+  <Navbar />
+  <main class="library">
+    <header class="library__hero container">
+      <span class="section-label">The Library</span>
+      <h1 class="library__title">Browse Our Shelf</h1>
+      <div class="divider divider--center"></div>
+      <p class="library__intro">
+        {games.length} games and counting. Pull a box off the shelf to see who it's for —
+        and if you're not sure how to play, our staff will teach you.
+      </p>
+    </header>
+
+    <div class="library__toolbar" id="toolbar">
+      <div class="container toolbar">
+        <label class="toolbar__search">
+          <span class="visually-hidden">Search games</span>
+          <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <circle cx="11" cy="11" r="7"></circle><path stroke-linecap="round" d="m20 20-3.5-3.5"></path>
+          </svg>
+          <input id="f-search" type="search" placeholder="Search a game…" autocomplete="off" />
+        </label>
+
+        <label class="toolbar__select">
+          <span class="toolbar__select-label">Players</span>
+          <select id="f-players">
+            <option value="">Any</option>
+            <option value="1">1 (solo)</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7+</option>
+          </select>
+        </label>
+
+        <label class="toolbar__select">
+          <span class="toolbar__select-label">Time</span>
+          <select id="f-time">
+            <option value="">Any</option>
+            <option value="30">30 min or less</option>
+            <option value="60">1 hour or less</option>
+            <option value="long">Over an hour</option>
+          </select>
+        </label>
+
+        <div class="toolbar__chips" role="group" aria-label="Difficulty">
+          <button type="button" class="chip is-active" data-difficulty="">All</button>
+          <button type="button" class="chip" data-difficulty="1">Easy</button>
+          <button type="button" class="chip" data-difficulty="2">Medium</button>
+          <button type="button" class="chip" data-difficulty="3">Hard</button>
+        </div>
+
+        <div class="toolbar__view" role="group" aria-label="View as">
+          <button type="button" class="view-btn is-active" data-view="shelf" aria-pressed="true">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="M5 4v13M9 6v11M13 4v13M17.5 6.5l3 10M3 20h18" stroke-linecap="round"></path>
+            </svg>
+            Shelf
+          </button>
+          <button type="button" class="view-btn" data-view="list" aria-pressed="false">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="M8 6h13M8 12h13M8 18h13M3.5 6h.01M3.5 12h.01M3.5 18h.01" stroke-linecap="round"></path>
+            </svg>
+            List
+          </button>
+        </div>
+
+        <p class="toolbar__status" aria-live="polite">
+          <span id="f-count">Showing all {games.length} games</span>
+          <button type="button" class="toolbar__reset" id="f-reset" hidden>Clear filters</button>
+        </p>
+      </div>
+    </div>
+
+    <nav class="library__jump container" aria-label="Jump to shelf">
+      {filledShelves.map((shelf) => (
+        <a href={`#shelf-${shelf.key}`}>{shelf.label}</a>
+      ))}
+    </nav>
+
+    <div class="container library__shelves" id="library-view">
+      {filledShelves.map((shelf) => (
+        <GameShelf id={`shelf-${shelf.key}`} label={shelf.label} blurb={shelf.blurb} games={shelf.games} withList />
+      ))}
+    </div>
+
+    <dialog class="game-card" id="game-dialog" aria-labelledby="gc-name">
+      <div class="game-card__band" id="gc-band"></div>
+      <button type="button" class="game-card__close" id="gc-close" aria-label="Close">×</button>
+      <div class="game-card__body">
+        <span class="game-card__category" id="gc-category"></span>
+        <h2 class="game-card__name" id="gc-name"></h2>
+        <dl class="game-card__stats">
+          <div><dt>Players</dt><dd id="gc-players"></dd></div>
+          <div><dt>Time</dt><dd id="gc-time"></dd></div>
+          <div><dt>Difficulty</dt><dd><span class="dots" id="gc-dots"></span> <span id="gc-difficulty"></span></dd></div>
+        </dl>
+        <p class="game-card__desc" id="gc-desc"></p>
+        <p class="game-card__teach">🙋 Never played it? Ask our staff — we'll teach you.</p>
+        <a href="/#cta" class="game-card__cta">Reserve a Spot</a>
+      </div>
+    </dialog>
+  </main>
+  <Footer />
+</Layout>
+
+<script>
+  // Every game appears twice: as a spine (shelf view) and as a row (list view).
+  const items = [...document.querySelectorAll<HTMLButtonElement>(".spine[data-game], .game-row[data-game]")];
+  const spines = items.filter((el) => el.classList.contains("spine"));
+  const shelfEls = [...document.querySelectorAll<HTMLElement>("[data-shelf]")];
+  const search = document.getElementById("f-search") as HTMLInputElement;
+  const players = document.getElementById("f-players") as HTMLSelectElement;
+  const time = document.getElementById("f-time") as HTMLSelectElement;
+  const chips = [...document.querySelectorAll<HTMLButtonElement>(".chip[data-difficulty]")];
+  const count = document.getElementById("f-count")!;
+  const reset = document.getElementById("f-reset")!;
+  let difficulty = "";
+
+  const normalize = (s: string) => s.toLowerCase().normalize("NFD").replace(/[^a-z0-9]/g, "");
+
+  function matches(spine: HTMLElement) {
+    const d = spine.dataset;
+    const q = normalize(search.value);
+    if (q && !normalize(d.name!).includes(q)) return false;
+
+    const n = Number(players.value);
+    if (n) {
+      const min = Number(d.min), max = Number(d.max);
+      if (n === 7 ? max < 7 : n < min || n > max) return false;
+    }
+
+    const t = Number(d.time);
+    if (time.value === "30" && t > 30) return false;
+    if (time.value === "60" && t > 60) return false;
+    if (time.value === "long" && t <= 60) return false;
+
+    if (difficulty && d.difficulty !== difficulty) return false;
+    return true;
+  }
+
+  function apply() {
+    const active = Boolean(search.value || players.value || time.value || difficulty);
+    let shown = 0;
+    for (const item of items) {
+      const ok = matches(item);
+      item.classList.toggle("is-dim", !ok);
+      item.tabIndex = ok ? 0 : -1;
+      if (ok && item.classList.contains("spine")) shown++;
+    }
+    for (const shelf of shelfEls) {
+      const n = shelf.querySelectorAll(".spine:not(.is-dim)").length;
+      shelf.classList.toggle("is-empty", n === 0);
+      const label = shelf.querySelector("[data-shelf-count]");
+      const total = shelf.querySelectorAll(".spine").length;
+      if (label) label.textContent = active ? `${n} of ${total}` : `${total} games`;
+    }
+    count.textContent = active
+      ? shown === 0
+        ? "No games match — try loosening a filter"
+        : `${shown} game${shown === 1 ? "" : "s"} match`
+      : `Showing all ${spines.length} games`;
+    reset.hidden = !active;
+  }
+
+  search.addEventListener("input", apply);
+  players.addEventListener("change", apply);
+  time.addEventListener("change", apply);
+  chips.forEach((chip) =>
+    chip.addEventListener("click", () => {
+      difficulty = chip.dataset.difficulty!;
+      chips.forEach((c) => c.classList.toggle("is-active", c === chip));
+      apply();
+    }),
+  );
+  reset.addEventListener("click", () => {
+    search.value = "";
+    players.value = "";
+    time.value = "";
+    difficulty = "";
+    chips.forEach((c, i) => c.classList.toggle("is-active", i === 0));
+    apply();
+  });
+
+  // ── Game detail card ──
+  const dialog = document.getElementById("game-dialog") as HTMLDialogElement;
+  const $ = (id: string) => document.getElementById(id)!;
+
+  function openGame(spine: HTMLElement) {
+    const d = spine.dataset;
+    const band = $("gc-band");
+    band.style.background = spine.style.getPropertyValue("--spine-bg");
+    $("gc-category").textContent =
+      spine.closest("[data-shelf]")?.querySelector(".shelf__label")?.textContent ?? "";
+    $("gc-name").textContent = d.name!;
+    $("gc-players").textContent = d.players!;
+    $("gc-time").textContent = d.timeLabel!;
+    $("gc-difficulty").textContent = d.difficultyLabel!;
+    $("gc-dots").innerHTML = [1, 2, 3]
+      .map((i) => `<i class="${i <= Number(d.difficulty) ? "on" : ""}"></i>`)
+      .join("");
+    $("gc-desc").textContent = d.desc!;
+    history.replaceState(null, "", `?game=${d.game}`);
+    dialog.showModal();
+  }
+
+  items.forEach((item) => item.addEventListener("click", () => openGame(item)));
+  $("gc-close").addEventListener("click", () => dialog.close());
+  dialog.addEventListener("click", (e) => {
+    if (e.target === dialog) dialog.close();
+  });
+  dialog.addEventListener("close", () => history.replaceState(null, "", location.pathname));
+
+
+  // ── Shelf / List view toggle (remembered per visitor) ──
+  const view = document.getElementById("library-view")!;
+  const viewBtns = [...document.querySelectorAll<HTMLButtonElement>(".view-btn")];
+
+  function setView(mode: string) {
+    view.classList.toggle("is-list", mode === "list");
+    viewBtns.forEach((b) => {
+      const on = b.dataset.view === mode;
+      b.classList.toggle("is-active", on);
+      b.setAttribute("aria-pressed", String(on));
+    });
+    try { localStorage.setItem("gh-library-view", mode); } catch {}
+  }
+  viewBtns.forEach((b) => b.addEventListener("click", () => setView(b.dataset.view!)));
+  try {
+    if (localStorage.getItem("gh-library-view") === "list") setView("list");
+  } catch {}
+
+  // Open a game from a link like /games?game=wingspan
+  const initial = new URLSearchParams(location.search).get("game");
+  const initialItem = initial && items.find((el) => el.dataset.game === initial && el.offsetParent);
+  if (initialItem) {
+    initialItem.scrollIntoView({ block: "center" });
+    openGame(initialItem);
+  }
+</script>
+
+<style>
+  .library {
+    padding-top: 7rem;
+    background:
+      radial-gradient(ellipse 70% 40% at 50% 0%, rgba(201, 168, 76, 0.08), transparent 70%),
+      var(--black);
+  }
+  .library__hero {
+    text-align: center;
+    padding-bottom: 2.5rem;
+  }
+  .library__title {
+    font-size: clamp(2.2rem, 6vw, 3.4rem);
+    color: var(--cream);
+  }
+  .library__intro {
+    margin: 0 auto;
+    max-width: 52ch;
+  }
+
+  /* ── Filter toolbar ── */
+  .library__toolbar {
+    position: sticky;
+    top: 62px;
+    z-index: 50;
+    background: rgba(13, 13, 13, 0.94);
+    backdrop-filter: blur(12px);
+    border-top: 1px solid rgba(201, 168, 76, 0.12);
+    border-bottom: 1px solid rgba(201, 168, 76, 0.12);
+    padding: 0.9rem 0;
+  }
+  .toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.75rem 1rem;
+  }
+  .toolbar__search {
+    flex: 1 1 220px;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: var(--black-card);
+    border: 1px solid rgba(201, 168, 76, 0.2);
+    border-radius: var(--radius);
+    padding: 0 0.75rem;
+    color: var(--gold);
+  }
+  .toolbar__search:focus-within { border-color: var(--gold); }
+  .toolbar__search input {
+    flex: 1;
+    min-width: 0;
+    background: none;
+    border: none;
+    outline: none;
+    color: var(--cream);
+    font: inherit;
+    font-size: 0.9rem;
+    padding: 0.6rem 0;
+  }
+  .toolbar__search input::placeholder { color: rgba(201, 191, 168, 0.5); }
+
+  .toolbar__select {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .toolbar__select-label {
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+  .toolbar__select select {
+    background: var(--black-card);
+    color: var(--cream);
+    border: 1px solid rgba(201, 168, 76, 0.2);
+    border-radius: var(--radius);
+    padding: 0.5rem 0.6rem;
+    font: inherit;
+    font-size: 0.85rem;
+    cursor: pointer;
+  }
+  .toolbar__select select:focus { outline: 1px solid var(--gold); }
+
+  .toolbar__chips {
+    display: flex;
+    border: 1px solid rgba(201, 168, 76, 0.2);
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
+  .chip {
+    background: none;
+    border: none;
+    color: var(--cream-dim);
+    font: inherit;
+    font-size: 0.8rem;
+    padding: 0.5rem 0.8rem;
+    cursor: pointer;
+    transition: background 0.2s ease, color 0.2s ease;
+  }
+  .chip + .chip { border-left: 1px solid rgba(201, 168, 76, 0.2); }
+  .chip:hover { color: var(--gold); }
+  .chip.is-active { background: var(--gold); color: var(--black); }
+
+
+  .toolbar__view {
+    display: flex;
+    margin-left: auto;
+    border: 1px solid rgba(201, 168, 76, 0.2);
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
+  .view-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    background: none;
+    border: none;
+    color: var(--cream-dim);
+    font: inherit;
+    font-size: 0.8rem;
+    padding: 0.5rem 0.85rem;
+    cursor: pointer;
+    transition: background 0.2s ease, color 0.2s ease;
+  }
+  .view-btn + .view-btn { border-left: 1px solid rgba(201, 168, 76, 0.2); }
+  .view-btn:hover { color: var(--gold); }
+  .view-btn.is-active { background: var(--gold); color: var(--black); }
+
+  .toolbar__status {
+    flex-basis: 100%;
+    display: flex;
+    gap: 1rem;
+    align-items: baseline;
+    font-size: 0.8rem;
+    color: var(--cream-dim);
+    max-width: none;
+  }
+  .toolbar__reset {
+    background: none;
+    border: none;
+    color: var(--gold);
+    font: inherit;
+    font-size: 0.8rem;
+    text-decoration: underline;
+    cursor: pointer;
+  }
+
+  /* ── Shelf jump links ── */
+  .library__jump {
+    display: flex;
+    gap: 0.5rem;
+    overflow-x: auto;
+    padding-top: 1.5rem;
+    padding-bottom: 2rem;
+    scrollbar-width: none;
+  }
+  .library__jump::-webkit-scrollbar { display: none; }
+  .library__jump a {
+    flex-shrink: 0;
+    font-size: 0.75rem;
+    letter-spacing: 0.05em;
+    color: var(--cream-dim);
+    border: 1px solid rgba(201, 168, 76, 0.2);
+    border-radius: 999px;
+    padding: 0.3rem 0.85rem;
+    transition: color 0.2s ease, border-color 0.2s ease;
+  }
+  .library__jump a:hover { color: var(--gold); border-color: var(--gold); }
+
+  .library__shelves { padding-bottom: 5rem; }
+
+  /* ── Game detail card ── */
+  .game-card {
+    width: min(440px, calc(100vw - 2rem));
+    margin: auto;
+    padding: 0;
+    background: var(--black-card);
+    color: var(--cream);
+    border: 1px solid rgba(201, 168, 76, 0.3);
+    border-radius: var(--radius);
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6);
+  }
+  .game-card[open] { animation: cardIn 0.35s cubic-bezier(0.4, 0, 0.2, 1); }
+  .game-card::backdrop {
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(3px);
+  }
+  @keyframes cardIn {
+    from { opacity: 0; transform: translateY(24px) scale(0.97); }
+    to { opacity: 1; transform: none; }
+  }
+  .game-card__band { height: 10px; }
+  .game-card__close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    width: 2rem;
+    height: 2rem;
+    background: none;
+    border: 1px solid rgba(201, 168, 76, 0.3);
+    border-radius: 50%;
+    color: var(--cream-dim);
+    font-size: 1.2rem;
+    line-height: 1;
+    cursor: pointer;
+  }
+  .game-card__close:hover { color: var(--gold); border-color: var(--gold); }
+  .game-card__body { padding: 1.75rem 1.75rem 2rem; }
+  .game-card__category {
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+  .game-card__name {
+    font-size: 1.75rem;
+    margin: 0.35rem 2.5rem 0.6rem 0;
+  }
+  .game-card__stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: rgba(201, 168, 76, 0.15);
+    border: 1px solid rgba(201, 168, 76, 0.15);
+    margin: 1.25rem 0;
+  }
+  .game-card__stats div {
+    background: var(--black-soft);
+    padding: 0.7rem 0.5rem;
+    text-align: center;
+  }
+  .game-card__stats dt {
+    font-size: 0.62rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--cream-dim);
+  }
+  .game-card__stats dd {
+    font-family: var(--font-serif);
+    font-size: 1.05rem;
+    color: var(--cream);
+  }
+  .game-card__stats :global(.dots) { display: inline-flex; gap: 3px; vertical-align: middle; }
+  .game-card__stats :global(.dots i) {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    border: 1px solid var(--gold);
+  }
+  .game-card__stats :global(.dots i.on) { background: var(--gold); }
+  .game-card__desc { font-size: 0.98rem; color: var(--cream); }
+  .game-card__teach {
+    margin-top: 0.9rem;
+    font-size: 0.85rem;
+    color: var(--cream-dim);
+  }
+  .game-card__cta {
+    display: block;
+    margin-top: 1.5rem;
+    text-align: center;
+    background: var(--gold);
+    color: var(--black);
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 0.8rem;
+    border-radius: 2px;
+    transition: background 0.25s ease;
+  }
+  .game-card__cta:hover { background: var(--gold-light); }
+
+  .visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+  }
+
+  @media (max-width: 768px) {
+    .library { padding-top: 6rem; }
+    .library__toolbar { position: static; }
+    .toolbar__select { flex: 1 1 40%; }
+    .toolbar__select select { flex: 1; }
+    .toolbar__chips { flex: 1 1 100%; }
+    .chip { flex: 1; }
+    .toolbar__view { flex: 1 1 100%; margin-left: 0; }
+    .view-btn { flex: 1; justify-content: center; }
+  }
+</style>
